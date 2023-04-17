@@ -1,14 +1,25 @@
+import { useState, useEffect } from "react";
 export function useCatImages(deps = []) {
-  let images = [];
 
-  try {
-    const images = fetch(
-      "https://api.thecatapi.com/v1/images/search?limit=5"
-    ).then((res) => res.json());
-  } catch (e) {
-    console.error("fetch failed!");
-    console.error(e);
-  }
+  const url = "https://api.thecatapi.com/v1/images/search?limit=5&has_breeds=1";
+
+  const [images, setImages] = useState([]);
+  const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setLoading(true)
+    fetch(url)
+        .then((res) => res.json())
+        .then((res) => {
+          setImages(res)
+          setLoading(false)
+        })
+        .catch(() => {
+          setError(true)
+          setLoading(false)
+        })
+  }, []);
 
   return images;
 }

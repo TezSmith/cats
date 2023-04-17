@@ -1,19 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useCatImages } from "./hooks/useCatImages";
+import CatCard from './CatCard';
 import "./App.css";
 
 function App() {
-  const images = useCatImages();
+
+  const [details, showDetails] = useState(false)
+  const results = useCatImages();
+
+  const toggleDetails = () => {
+    showDetails(!details);
+  }
 
   return (
     <>
       <h1>Images of Cats</h1>
+      <button onClick={toggleDetails}>Show Cat Info</button>
       <ul>
-        {images.map(({ id, height, url, width }) => (
-          <li key={id}>
-            <img src={url} alt={id} height={height} width={width} />
-          </li>
-        ))}
+        {results.map((r) => <CatCard cat={r} details={details} />)}
       </ul>
     </>
   );
