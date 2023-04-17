@@ -1,5 +1,5 @@
 import React from "react";
-import { render, rerender, waitFor, act, screen } from "@testing-library/react";
+import { render, waitFor, screen } from "@testing-library/react";
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import App from "./App";
@@ -11,6 +11,10 @@ test("renders page headings", () => {
 });
 
 describe('Cat Grid', () => {
+  const setup = () => {
+    return render(<App />);
+  }
+
   it('renders images', async () => {
     const { findAllByRole } = render(<App />);
 
@@ -23,13 +27,14 @@ describe('Cat Grid', () => {
 
   it('shows cat name and description information when show cat info button is clicked', async () => {
     
-    const { getByRole, getAllByTestId } = render(<App />);
-    
-    const button = getByRole('button');
-    userEvent.click(button);
+    setup();
 
-    const hmm = await getAllByTestId('cat-grid');
-    expect(hmm).toBeInTheDocument();
+    waitFor(() => {
+      const button = screen.getByRole('button');
+      userEvent.click(button);
+
+      expect(screen.getByTestId('cat-info')).toBeInTheDocument();
+    })
     
   })
 })
