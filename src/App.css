@@ -1,9 +1,58 @@
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box; 
+}
+
 body {
-  padding: 1rem;
+  padding: 10px;
 }
 
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+button {
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 812px) {
+  .grid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .grid li {
+    width: 90vw;
+    align-self: center;
+  }
+
+  .grid li img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+@media screen and (min-width: 813px) {
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .grid li {
+    flex-basis: 490px; 
+  }
+
+  .grid li img {
+    object-fit: cover;
+    max-width: 100%;
+    height: 300px;
+    vertical-align: middle;
+  }
 }

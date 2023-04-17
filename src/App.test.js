@@ -25,8 +25,7 @@ describe('Cat Grid', () => {
 
   })
 
-  it('shows cat name and description information when show cat info button is clicked', async () => {
-    
+  it('shows cat name and description information when toggle cat info button is clicked', async () => {
     setup();
 
     waitFor(() => {
