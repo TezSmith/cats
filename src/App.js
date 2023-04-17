@@ -17,7 +17,7 @@ function App() {
       <h1>Images of Cats</h1>
       <button onClick={toggleDetails}>Show Cat Info</button>
       <ul>
-        {results.map((r) => <CatCard cat={r} details={details} />)}
+        {results.map((r) => <CatCard cat={r} showDetails={details} />)}
       </ul>
     </>
   );

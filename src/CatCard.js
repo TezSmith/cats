@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useCatDetails } from "./hooks/useCatDetails";
 
-const CatCard = ({ cat, details }) => {
+const CatCard = ({ cat, showDetails }) => {
 
     const { id, url, height, width } = cat;
 
-    const [breedName, setBreedName] = useState('');
-    const [desc, setDesc] = useState('');
-
-    const hmm = useCatDetails(id);
+    const info = useCatDetails(id);
 
     return (
         <li key={id}>
-            {details && <p>Breed Name</p>}
-            {details && <p>Description</p>}
+            {showDetails && <p data-testid="cat-name">{info.breeds[0].name}</p>}
+            {showDetails && <p data-testid="cat-desc">{info.breeds[0].description}</p>}
             <img src={url} alt={id} height={height} width={width} />
         </li>
     );
