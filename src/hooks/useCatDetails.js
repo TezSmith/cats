@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-export const useCatDetails = (id = 1) => {
+export const useCatDetails = (id) => {
 
   const url = `https://api.thecatapi.com/v1/images/${id}`;
 
@@ -16,7 +16,7 @@ export const useCatDetails = (id = 1) => {
         setInfo(res)
       })
       .catch(() => {
-        console.log('whoops')
+        console.log('Whoops -- Can\'t find more information about this cat :(')
       })
       return () => {
         controller.abort()
