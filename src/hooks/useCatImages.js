@@ -8,17 +8,25 @@ export function useCatImages(deps = []) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    // Used to prevent memory leak in test
+    const controller = new AbortController()
+    const signal = controller.signal;
     setLoading(true)
-    fetch(url)
-        .then((res) => res.json())
-        .then((res) => {
-          setImages(res)
-          setLoading(false)
-        })
-        .catch(() => {
-          setError(true)
-          setLoading(false)
-        })
+    fetch(url, {
+        signal: signal,
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setImages(res)
+        setLoading(false)
+      })
+      .catch(() => {
+        setError(true)
+        setLoading(false)
+      })
+      return () => {
+        controller.abort()
+      }
   }, []);
 
   return images;

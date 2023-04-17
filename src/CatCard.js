@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useCatDetails } from "./hooks/useCatDetails";
 
 const CatCard = ({ cat, showDetails }) => {
@@ -9,8 +9,10 @@ const CatCard = ({ cat, showDetails }) => {
 
     return (
         <li key={id}>
-            {showDetails && <p data-testid="cat-name">{info.breeds[0].name}</p>}
-            {showDetails && <p data-testid="cat-desc">{info.breeds[0].description}</p>}
+            {showDetails && <div data-testid="cat-info">
+                <h2>{info.breeds[0].name}</h2>
+                <p>{info.breeds[0].description}</p>
+            </div>}
             <img src={url} alt={id} height={height} width={width} />
         </li>
     );

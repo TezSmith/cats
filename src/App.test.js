@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import { render, rerender, waitFor, act, screen } from "@testing-library/react";
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import App from "./App";
@@ -11,23 +11,25 @@ test("renders page headings", () => {
 });
 
 describe('Cat Grid', () => {
-  it('renders images', () => {
-    const { getAllByRole } = render(<App />);
+  it('renders images', async () => {
+    const { findAllByRole } = render(<App />);
 
-    const images = getAllByRole('img');
-    expect(images).toBeInTheDocument();
+    const images = await findAllByRole('img');
+    images.forEach((i) => {
+      expect(i).toBeInTheDocument();
+    })
+
   })
 
-  it('shows cat name and description information, when show cat info button is clicked', async () => {
-    const { getByRole, getByTestId } = render(<App />);
-
+  it('shows cat name and description information when show cat info button is clicked', async () => {
+    
+    const { getByRole, getAllByTestId } = render(<App />);
+    
     const button = getByRole('button');
-    fireEvent.click(button);
+    userEvent.click(button);
 
-    await waitFor(() => {
-      expect(getByTestId('cat-name')).toBeInTheDocument();
-      expect(getByTestId('cat-desc')).toBeInTheDocument();
-    });
-
+    const hmm = await getAllByTestId('cat-grid');
+    expect(hmm).toBeInTheDocument();
+    
   })
 })

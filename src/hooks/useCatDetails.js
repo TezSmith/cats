@@ -6,14 +6,21 @@ export const useCatDetails = (id = 1) => {
   const [info, setInfo] = useState([]);
 
   useEffect(() => {
-    fetch(url)
-        .then((res) => res.json())
-        .then((res) => {
-          setInfo(res)
-        })
-        .catch(() => {
-          console.log('whoops')
-        })
+    const controller = new AbortController()
+    const signal = controller.signal;
+    fetch(url, {
+      signal: signal
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setInfo(res)
+      })
+      .catch(() => {
+        console.log('whoops')
+      })
+      return () => {
+        controller.abort()
+      }
   }, [url]);
   
   return info

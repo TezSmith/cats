@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useCatImages } from "./hooks/useCatImages";
 import CatCard from './CatCard';
 import "./App.css";
@@ -16,7 +16,7 @@ function App() {
     <>
       <h1>Images of Cats</h1>
       <button onClick={toggleDetails}>Show Cat Info</button>
-      <ul>
+      <ul data-testid="cat-grid">
         {results.map((r) => <CatCard cat={r} showDetails={details} />)}
       </ul>
     </>
